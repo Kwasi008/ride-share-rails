@@ -9,5 +9,8 @@ RSpec.describe Api::DriversController, type: :request do
        expect(response).to have_http_status(201) 
         puts response.body
     end
-
+    def setup 
+        let!(:organization) { FactoryBot.create(:organization) } 
+        let!(:driver) { FactoryBot.create(:driver, organization_id: 1) }
+    end
 end
