@@ -1,4 +1,4 @@
-FactoryBot.difine do 
+FactoryBot.define do 
    factory :driver_enrollment do  
       organization_id {'1'} 
       first_name {'bob'}
