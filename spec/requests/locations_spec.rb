@@ -70,10 +70,10 @@ RSpec.describe Api::V1::Locations, type: :request do
     get "/api/v1/locations/#{location.id}", headers: {"ACCEPT" => "application/json",  "Token" => "1234"}
     
       parsed_json = JSON.parse(response.body)
-      expect(parsed_json['location']['street']).to eq('1200 front st.')
+      expect(parsed_json['location']['street']).to eq('800 Park Offices Dr')
       expect(parsed_json['location']['city']).to eq('Durham')
       expect(parsed_json['location']['state']).to eq('NC')
-      expect(parsed_json['location']['zip']).to eq( "27705")
+      expect(parsed_json['location']['zip']).to eq( "27709")
       expect(response).to have_http_status(200)
   end
  

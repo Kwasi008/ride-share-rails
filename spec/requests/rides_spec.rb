@@ -8,7 +8,7 @@ RSpec.describe Api::V1::Rides, type: :request do
   # radius is set to miles by geocode
   # To see test case # 250 and 257, turn is_active to false.
   let!(:driver) {create(:driver, organization_id: organization.id,
-     auth_token: "1234", radius: 5, is_active: false, token_created_at: Time.zone.now) }
+     auth_token: "1234", radius: 5, is_active: true, token_created_at: Time.zone.now) }
   let!(:driver2) {create(:driver, organization_id: organization.id,
      auth_token: "4567",token_created_at: Time.zone.now) }
   let!(:rider){create(:rider)}
@@ -249,7 +249,7 @@ RSpec.describe Api::V1::Rides, type: :request do
     
     it 'Will return a not authorized, when a inactived driver tries to accept rides' do
     get "/api/v1/rides/#{ride1.id}",  headers: {"ACCEPT" => "application/json",  "Token" => "1234"}
-    expect(response).to have_http_status(200)
+    expect(response).to have_http_status(201)
     end
     
     it "Will return a not authorized, when an inactived driver tries to recieve rides." do

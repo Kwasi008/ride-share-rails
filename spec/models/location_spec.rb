@@ -23,7 +23,7 @@ RSpec.describe Location, type: :model do
 
   describe 'Instance methods' do
     it "returns a location's full address as string" do
-      expect(location.full_address).to eq("1200 front st., Durham, NC 27705")
+      expect(location.full_address).to eq("800 Park Offices Dr, Durham, NC 27709")
     end
   end
 
