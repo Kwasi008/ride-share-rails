@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 2020_03_02_154023) do
     t.boolean "round_trip", default: false, null: false
     t.string "expected_wait_time"
     t.date "completed_at"
-    t.boolean "same_driver", default: false
+    t.boolean "same_driver", default: true
     t.index ["driver_id"], name: "index_rides_on_driver_id"
     t.index ["end_location_id"], name: "index_rides_on_end_location_id"
     t.index ["organization_id"], name: "index_rides_on_organization_id"
