@@ -219,6 +219,10 @@
     7. <%= form.label :expected_wait_time %>
        <%= form.select :expected_wait_time, options_for_select([["", ""], ["30 mins", "30"],["45 mins", "45"], ["1.0 hour", "60"], ["1.5 hours", "90"],["2.0 hours", "120"], ["2.5 hours", "150"], ["3.0 hours", "180"]], "#{@ride.expected_wait_time}"), class: "form-control" %>
   </div>
+  <div id="same_driver" style="display: none" class="form-group  col-md-10 offset-md-1">
+    8. <%= form.label :same_driver %>
+       <%= form.select :same_driver, options_for_select([["Yes", true], ["No", false]]), class: "form-control" %>
+  </div>
 </div>
 <div class="form-row">
   <div class="form-group col-md-1 offset-md-1">
@@ -253,6 +257,7 @@
               $("#show_dep").hide();
           } else {
               $("#show_dep").show();
+              $("#same_driver").show();
           }
       });
   });

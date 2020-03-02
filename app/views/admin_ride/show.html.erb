@@ -43,6 +43,11 @@
   </p>
 
   <p>
+    <strong>Same_driver?</strong>
+    <%= @ride.same_driver %>
+  </p>
+
+  <p>
     <% if @ride.round_trip? %>
       <strong>Expected Wait time:</strong>
       <% if ["30", "45"].include? @ride.expected_wait_time %>
