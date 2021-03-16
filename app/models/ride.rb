@@ -9,14 +9,16 @@ class Ride < ApplicationRecord
   belongs_to :rider
   belongs_to :start_location, :class_name => "Location"
   belongs_to :end_location, :class_name => "Location"
+  validates_associated :start_location, :end_location
   has_one :outbound_ride, class_name: 'Ride', foreign_key: :outbound, dependent: :nullify
   has_one :inbound_ride, class_name: 'Ride', foreign_key: :return, dependent: :nullify
+  has_many :ride_logs
   has_one :token
 
   validates :start_location, :end_location, :pick_up_time, :reason, :status, presence: true
   validate :pick_up_time_cannot_be_in_the_past
   # validate :valid_locations
-  validates :status, inclusion: { in: %w(pending approved scheduled picking-up dropping-off waiting return-picking-up return-dropping-off completed canceled),
+  validates :status, inclusion: { in: %w(pending approved scheduled picking-up dropping-off returning-home waiting return-picking-up return-dropping-off completed canceled),
   message: "%{value} is not a valid status" }
   # validates :expected_wait_time, presence: true, if: :round_trip?
   after_validation :set_distance, on: [ :create, :update ]

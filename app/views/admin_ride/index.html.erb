@@ -13,7 +13,7 @@
           Status
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <%= link_to 'Show all rides', admin_ride_index_path %>
+        <%= link_to 'All rides', admin_ride_index_path %>
         <%= link_to 'Pending', admin_ride_index_path(status: "pending") %>
         <%= link_to 'Approved', admin_ride_index_path(status: "approved") %>
         <%= link_to 'Scheduled', admin_ride_index_path(status: "scheduled") %>

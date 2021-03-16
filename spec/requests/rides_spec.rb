@@ -72,8 +72,12 @@ RSpec.describe Api::V1::Rides, type: :request do
                 start_location_id: location2.id, end_location_id: location3.id)}
 
   let!(:ride9) {create(:ride, rider_id: rider.id, organization_id: organization.id,
-                              driver_id: driver4.id, status: "scheduled",
-                              start_location_id: location2.id, end_location_id: location3.id)}
+                driver_id: driver4.id, status: "scheduled",
+                start_location_id: location2.id, end_location_id: location3.id)}
+
+  let!(:ride10) {create(:ride, rider_id: rider.id, organization_id: organization.id,
+                driver_id: driver.id, status: "returning-home",
+                start_location_id: location2.id, end_location_id: location3.id)}
 
   #Accepts a ride for the current logged in user.
   #This added the driver id to the ride and changes the status to scheduled
@@ -100,7 +104,7 @@ RSpec.describe Api::V1::Rides, type: :request do
 
   #Changes status of ride to completed
   it 'will complete a ride for a driver' do
-    post "/api/v1/rides/#{ride8.id}/complete",  headers: {"ACCEPT" => "application/json",  "Token" => "1234"}
+    post "/api/v1/rides/#{ride10.id}/complete",  headers: {"ACCEPT" => "application/json",  "Token" => "1234"}
     expect(response).to have_http_status(201)
     parsed_json = JSON.parse(response.body)
     expect(parsed_json['ride']['status']).to eq("completed")
@@ -113,11 +117,11 @@ RSpec.describe Api::V1::Rides, type: :request do
 
   end
 
-  it 'will put the ride back to APPROVED status when canceled a ride with scheduled status' do
+  it 'will put the ride to canceled status when cancelling a ride with scheduled status' do
     post "/api/v1/rides/#{ride1.id}/cancel",  headers: {"ACCEPT" => "application/json",  "Token" => "1234"},
     params: { reason: "No Show"}
     parsed_json = JSON.parse(response.body)
-    expect(parsed_json['ride']['status']).to eq("approved")
+    expect(parsed_json['ride']['status']).to eq("canceled")
   end
 
   it 'will return a 401 error when ride does not belong to driver ' do
@@ -163,7 +167,7 @@ RSpec.describe Api::V1::Rides, type: :request do
   context "rides list return different params " do
     #Returns all rides that have not been filled with a driver
     it 'will return all rides without drivers ' do
-      get "/api/v1/rides",  headers: {"ACCEPT" => "application/json",  "Token" => "1234"}
+      get "/api/v1/rides",  headers: {"ACCEPT" => "application/json",  "Token" => "1234"}, params:{ status: ["approved"]}
       parsed_json = JSON.parse(response.body)
       #nil because no driver has accepted it yet
       expect(parsed_json['rides'][0]['driver_id']).to eq(nil)

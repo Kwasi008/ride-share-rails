@@ -6,6 +6,7 @@ class User < ApplicationRecord
   validate :password_complexity
 
   belongs_to :organization
+  has_many :ride_logs
 
   def password_complexity
     if password.present? and not password.match(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,25}$/)
