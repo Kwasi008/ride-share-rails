@@ -96,13 +96,13 @@ git pull upstream master # to synchronize with the master repository.
 1. Do not make edits directly to the master branch. 
 Instead, create a feature branch using 
 ```bash
-git checkout -b # <featurename> 
+git checkout -b featurename
 ```
 Note: If you forget, there are ways to save your changes and to get the master branch back the way it was. For example, if you have not committed changes, you can use git stash, then create the feature branch, then do git stash apply.
 2. Work on the feature, periodically committing to your feature branch.
 3. Periodically push your commits to github, using
 ```bash
-git push origin # <featurename>
+git push origin featurename
 ```
 4. When the feature is complete, tested, and ready, commit and push it once more.
 5. Then, checkout the master branch. You need to get any changes that have been made by your coworkers on the project.
@@ -112,7 +112,7 @@ git pull upstream master # to get those latest changes.
 ```
 7. Then, 
 ```bash
-git checkout # <featurename> 
+git checkout featurename 
 ```
 to switch back to your feature branch.
 8. Do 
@@ -123,12 +123,15 @@ git merge master. # This will bring those changes into your feature branch.
 10. If you fixed merge conflicts in any files, add and commit them to complete the merge.
 11. Test one more time to make sure the merge didn’t cause a break and that your feature still works.
 12. Push your feature branch to github one more time.
+```bash
+git push
+```
 13. Login to github and do a pull request for your feature branch. Include git IDs for project committers in the comment for your pull request so that they can review it.
 14. If the review determines that changes are needed, make them to the same feature branch. Then repeat the process of pulling the upstream master into the master branch, merging the master branch, and resolving merge conflicts, and push your changes once more, marking the requested changes as resolved.
 15. Repeat this process until your feature branch has been merged.
 16. Checkout your master branch on your workstation. You can now delete your feature branch using
 ```bash
-git branch -d # <featurename>
+git branch -d featurename # delete your branch
 ```
 17. Do a 
 ```bash
@@ -141,32 +144,31 @@ git push origin master # to push your changes to your github fork master branch.
 19. Time for a new feature branch!
 
 # Working with a PRIVATE repository
-Git Process for Midnight Train Applications
-The Warren County Farm to Consumer application will not be open source, because Warren County will own the code. The CARE Alliance Application will not be open source, because it uses a proprietary library. So, we must make both repositories private, and we can’t use forks. Instead, we will use branches for each feature request. There are two branches in continuous use, those being master and development, but these are read/only except for Chuck, Ramiro, and John.
+## Git Process for CRSN Applications. 
+The CRSN Application will not be open source, because it uses a proprietary library. So, we must make both repositories private, and we can’t use forks. Instead, we will use branches for each feature request. There are two branches in continuous use, those being master and development, but these are read/only except for Chuck, Ramiro, and John.
 
 ## Setting Up for the Git Process
-
-We will use postgres as the database for this application. Be sure you have postgres installed in your development environment.
+We will use Postgres as the database for this application. Be sure you have Postgres installed in your development environment.
 
 Go to the directory where you would like to do your work, and clone the repository:
 
 ```bash
-git clone https://github.com/[GITHUBHANDLE]/ride-share-rails.git
+git clone https://github.com/CodeTheDream/ride-share-rails.git
 cd ride-share-rails
 bundle install
 ```
 
 ## Git Process for Features
 
-1. Switch to development branch. Do a
+1. Switch to `development` branch. Do a
 ```bash
 git checkout development # (always start your new feature branch here)
 ```
-2. 
+2. Pull all the latest commits 
 ```bash
 git pull origin development # (make sure you are up to date)
 ```
-3. 
+3. Create new feature branch
 ```bash
 git checkout -b your-feature-name 
 ```
@@ -182,7 +184,7 @@ git push
 ```
 7. Test your feature, including Rspec testing. Make any changes necessary to make the tests pass.
 ```bash
-bundle exec rspec  # start a Rspec testing
+bundle exec rspec  # start all Rspec testing
 ```
 8. Commit and push your changes again.
 ```bash
@@ -195,7 +197,7 @@ git checkout development # to switch a development branch
 ```
 10. Pull all changes from development branch.
 ```bash
-git pull origin development # get all changes from development/master branch
+git pull origin development # get all changes from development branch
 ```
 11. Switch back to your feature branch.
 ```bash
