@@ -15,8 +15,8 @@
               <strong>License State:</strong> <%= vehicle.car_state %><br>
               <strong>Number of seat belts:</strong> <%= vehicle.seat_belt_num %><br>
               <strong>Insurance:</strong> <%= vehicle.insurance_provider %><br>
-              <strong>Effective</strong> <%= vehicle.insurance_start.strftime("%m-%d-%Y")%> <strong>to</strong>
-              <%= vehicle.insurance_stop.strftime("%m-%d-%Y")%>
+              <strong>Effective</strong> <%= vehicle.insurance_start&.strftime("%m-%d-%Y")%> <strong>to</strong>
+              <%= vehicle.insurance_stop&.strftime("%m-%d-%Y")%>
               <div class="car-buttons">
                 <%= link_to "Edit", edit_admin_vehicle_path(vehicle), class: "btn btn-sm btn-outline-primary" %>
                 <%= link_to "Delete", admin_vehicle_path(vehicle), method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-sm btn-outline-danger"%>
