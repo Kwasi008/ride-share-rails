@@ -158,26 +158,69 @@ bundle install
 
 ## Git Process for Features
 
-1. git checkout development (always start your new feature branch here)
-2. git pull origin development (make sure you are up to date)
-3. git checkout -b your-feature-name
+1. Switch to development branch. Do a
+```bash
+git checkout development # (always start your new feature branch here)
+```
+2. 
+```bash
+git pull origin development # (make sure you are up to date)
+```
+3. 
+```bash
+git checkout -b your-feature-name 
+```
 4. Develop your feature
 5. Add and commit your changes.
+```bash
+git add -A # add all files that you changed
+git commit -m "your-useful-comment" # make commit 
+```
 6. Push your feature branch. This should be done periodically, even before you are done with your feature, so that you don’t lose your work.
+```bash
+git push
+```
 7. Test your feature, including Rspec testing. Make any changes necessary to make the tests pass.
+```bash
+bundle exec rspec  # start a Rspec testing
+```
 8. Commit and push your changes again.
-9. git checkout development (you need to merge in any changes that your colleagues have made in the meantime)
-10. git pull origin development
-11. git checkout your-feature-name
-12. git merge development (now, at this point, if anyone has made changes to the same files you changed, you will need to resolve merge conflicts)
-13. resolve merge conflicts, if any, and add and commit your changes
-14. test again to make sure the merge conflict resolution did not break anything
-15. push your changes
-16. Do a pull request. The target of the pull request must be the development branch. Make @charlesvincentanderson and @jrmcgarvey as reviewers.
-17. Chuck will review your code and may request changes.
+```bash
+git add -A # add all files that you changed
+git commit -m "your-useful-comment" # make commit 
+```
+9. Then checkout the development branch. You need to merge in any changes that your colleagues have made in the meantime.
+```bash
+git checkout development # to switch a development branch
+```
+10. Pull all changes from development branch.
+```bash
+git pull origin development # get all changes from development/master branch
+```
+11. Switch back to your feature branch.
+```bash
+git checkout your-feature-name
+```
+12. Merge development branc with your feature branch. Now, at this point, if anyone has made changes to the same files you changed, you will need to resolve merge conflicts before merge.
+```bash
+git merge development # it merge changes from the development/master branch with your branch
+``` 
+13. Resolve merge conflicts, if any, and add and commit your changes
+14. Test again to make sure the merge conflict resolution did not break anything
+15. Push your changes
+```bash
+git push
+```
+16. Do a pull request. The target of the pull request must be the development branch. Make @micronix @kidatsy @jrmcgarvey as reviewers.
+17. John will review your code and may request changes.
 18. Make any necessary changes to the your-feature-name branch. Then add, commit, and push again.
-19. Once all required changes have been made, Chuck will merge your code.
-20. Time for a new feature branch!
+```bash
+git add -A # add all files that you have changed
+git commit -m "your-useful-comment" # make your commit
+git push # push the files in remote repo
+```
+19. Once all required changes have been made, John will merge your code.
+20. It is time for create a new feature branch!
 
 # API Documentation
 
