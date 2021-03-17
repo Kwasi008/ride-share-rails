@@ -10,7 +10,10 @@
     <th scope="col"><%= sort_link @query, :reason, default_order: :desc %></th>
     <th scope="col" class="row-height">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Status
+          Status: 
+          <%= if params[:status]
+              params[:status].capitalize
+              end %>      
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <%= link_to 'All rides', admin_ride_index_path %>
