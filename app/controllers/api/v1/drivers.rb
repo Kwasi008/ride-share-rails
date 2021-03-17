@@ -50,11 +50,22 @@ module Api
           location_ids = LocationRelationship.where(driver_id: current_driver.id)
           locations = []
           location_ids.each do |id|
-            locations.push(Location.where(id: id))
+            loc = {
+              id: id.location.id,
+              street: id.location.street,
+              city: id.location.city,
+              state: id.location.state,
+              zip: id.location.zip,
+              latitude: id.location.latitude,
+              longitude: id.location.longitude,
+              notes: id.location.notes,
+              default: id.default
+            }
+            locations << loc
           end
         end
         status 200
-        return { "driver": driver, "location": locations }
+        return { "driver": driver, "locations": locations }
       end
 
       desc 'Update current driver'
