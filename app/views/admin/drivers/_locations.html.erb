@@ -8,6 +8,11 @@
           <div class="row">
             <div class="col-sm border-top border-bottom">
               <%= location.full_address %>
+              <%if location.location_relationships.first.default %>
+                <span style="color: #ff8262;">
+                  <i class="fa fa-check"></i>
+                </span>
+              <%end%>
             </div>
           </div>
         </div>
