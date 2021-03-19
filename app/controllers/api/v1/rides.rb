@@ -10,6 +10,10 @@
         error!('Unauthorized', 401) unless require_login! && validate_current_driver!
       end
 
+      before do
+        @active_user = nil
+      end
+
       desc "Return all rides"
       params do
         optional :start, type: DateTime, desc: "Start date for rides"

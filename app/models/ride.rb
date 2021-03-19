@@ -22,12 +22,28 @@ class Ride < ApplicationRecord
   message: "%{value} is not a valid status" }
   # validates :expected_wait_time, presence: true, if: :round_trip?
   after_validation :set_distance, on: [ :create, :update ]
+  after_validation :transition_to_state, if: ->(obj) {obj.status_changed?}
   scope :status, -> (status) { where status: status }
 
   def self.ride_categories
     ride_categories_arr = []
     RIDE_CATEGORIES.each do |r_c|
       ride_categories_arr << [r_c, r_c]
+    end
+  end
+
+  def transition_to_state
+
+    if self.status == "cancelled"
+      description = self.cancellation_reason
+    else
+      description = self.reason
+    end
+    if !@active_user.nil?
+      RideLog.create(ride_id: self.id, original_status: self.status_was, new_status: self.status, description: description )
+    else
+      byebug
+      RideLog.create(ride_id: self.id, original_status: self.status_was, new_status: self.status, description: description, user_id: @active_user.id )
     end
   end
 

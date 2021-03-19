@@ -3,6 +3,7 @@
 class AdminRideController < ApplicationController
   RIDES_PER_PAGE_AMOUNT = 10
   before_action :authenticate_user!
+  before_action :set_active_user
   before_action :conditional_ride_reason, only: [:create, :update]
   #  before_action :rider_is_active, only: :create
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -252,6 +253,10 @@ class AdminRideController < ApplicationController
     end
     l_new = location.save_or_touch
     l_new
+  end
+
+  def set_active_user
+    @active_user = current_user
   end
 
 
