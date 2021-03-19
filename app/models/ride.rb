@@ -22,7 +22,9 @@ class Ride < ApplicationRecord
   message: "%{value} is not a valid status" }
   # validates :expected_wait_time, presence: true, if: :round_trip?
   after_validation :set_distance, on: [ :create, :update ]
-  after_validation :transition_to_state, if: ->(obj) {obj.status_changed?}
+  # after_validation :transition_to_state, if: ->(obj) {obj.status_changed?}
+  # after_create :transition_to_state
+  after_save :transition_to_state
   scope :status, -> (status) { where status: status }
 
   def self.ride_categories
@@ -33,16 +35,23 @@ class Ride < ApplicationRecord
   end
 
   def transition_to_state
-
+    if !saved_change_to_status
+      return
+    end
+    # if self.id.nil?
+    #   return
+    # end
     if self.status == "canceled"
       description = self.cancellation_reason
     else
       description = self.reason
     end
-    if !@active_user.nil?
-      RideLog.create(ride_id: self.id, original_status: self.status_was, new_status: self.status, description: description )
+    byebug
+    if !Thread.current[:active_user].nil?
+    rl =  RideLog.new(ride_id: self.id, original_status: self.status_before_last_save, new_status: self.status, description: description, user_id: Thread.current[:active_user].id  )
+    rl.save
     else
-      RideLog.create(ride_id: self.id, original_status: self.status_was, new_status: self.status, description: description )
+      RideLog.create(ride_id: self.id, original_status: self.status_before_last_save, new_status: self.status, description: description, driver_id: Thread.current[:active_driver].id )
     end
   end
 

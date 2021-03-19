@@ -11,8 +11,10 @@
       end
 
       before do
-        @active_user = nil
+        Thread.current[:active_user] = nil
+        Thread.current[:active_driver] = current_driver
       end
+
 
       desc "Return all rides"
       params do

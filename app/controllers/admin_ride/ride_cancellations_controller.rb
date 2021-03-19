@@ -1,4 +1,10 @@
 class AdminRide::RideCancellationsController < ApplicationController
+  before_action :authenticate_user!
+  before_action do
+    Thread.current[:active_user] = current_user
+  end
+
+
   def review
     begin
       @ride = Ride.find(params[:id])
