@@ -34,7 +34,7 @@ class Ride < ApplicationRecord
 
   def transition_to_state
 
-    if self.status == "cancelled"
+    if self.status == "canceled"
       description = self.cancellation_reason
     else
       description = self.reason
@@ -42,8 +42,7 @@ class Ride < ApplicationRecord
     if !@active_user.nil?
       RideLog.create(ride_id: self.id, original_status: self.status_was, new_status: self.status, description: description )
     else
-      byebug
-      RideLog.create(ride_id: self.id, original_status: self.status_was, new_status: self.status, description: description, user_id: @active_user.id )
+      RideLog.create(ride_id: self.id, original_status: self.status_was, new_status: self.status, description: description )
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_18_204544) do
+ActiveRecord::Schema.define(version: 2021_03_19_200418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,10 @@ ActiveRecord::Schema.define(version: 2021_03_18_204544) do
     t.text "description"
     t.bigint "user_id"
     t.bigint "ride_id", null: false
+    t.bigint "driver_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_id"], name: "index_ride_logs_on_driver_id"
     t.index ["ride_id"], name: "index_ride_logs_on_ride_id"
     t.index ["user_id"], name: "index_ride_logs_on_user_id"
   end
@@ -232,6 +236,7 @@ ActiveRecord::Schema.define(version: 2021_03_18_204544) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "ride_logs", "drivers"
   add_foreign_key "ride_logs", "rides"
   add_foreign_key "ride_logs", "users"
 end
